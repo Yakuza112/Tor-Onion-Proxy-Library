@@ -29,6 +29,8 @@ See the Apache 2 License for the specific language governing permissions and lim
 
 package com.msopentech.thali.toronionproxy;
 
+import com.msopentech.thali.toronion.proxy.TorNotRunningException;
+
 import net.freehaven.tor.control.ConfigEntry;
 import net.freehaven.tor.control.TorControlConnection;
 
@@ -144,7 +146,7 @@ public abstract class OnionProxyManager {
      */
     public synchronized int getIPv4LocalHostSocksPort() throws IOException {
         if (!isRunning()) {
-            throw new RuntimeException("Tor is not running!");
+            throw new TorNotRunningException();
         }
 
         // This returns a set of space delimited quoted strings which could be Ipv4, Ipv6 or unix sockets
@@ -251,7 +253,7 @@ public abstract class OnionProxyManager {
      */
     public synchronized void enableNetwork(boolean enable) throws IOException {
         if(controlConnection == null) {
-            throw new RuntimeException("Tor is not running!");
+            throw new TorNotRunningException();
         }
         LOG.info("Enabling network: " + enable);
         controlConnection.setConf("DisableNetwork", enable ? "0" : "1");
@@ -265,7 +267,7 @@ public abstract class OnionProxyManager {
      */
     public synchronized boolean isNetworkEnabled() throws IOException {
         if (controlConnection == null) {
-            throw new RuntimeException("Tor is not running!");
+            throw new TorNotRunningException();
         }
 
         List<ConfigEntry> disableNetworkSettingValues = controlConnection.getConf("DisableNetwork");
