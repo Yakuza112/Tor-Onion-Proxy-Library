@@ -29,7 +29,7 @@ See the Apache 2 License for the specific language governing permissions and lim
 
 package com.msopentech.thali.toronionproxy;
 
-import com.msopentech.thali.toronion.proxy.TorNotRunningException;
+import com.msopentech.thali.toronionproxy.exception.TorNotRunningException;
 
 import net.freehaven.tor.control.ConfigEntry;
 import net.freehaven.tor.control.TorControlConnection;
